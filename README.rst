@@ -11,10 +11,15 @@ envconfig
 .. image:: https://pypip.in/v/envconfig/badge.png
         :target: https://pypi.python.org/pypi/envconfig
 
+A module for reading configuration values from the OS environment variables.
 
-Features
---------
-- todo
+Compared to using straight os.getenv() this module provides a view
+convenience functions, for example, for parsing booleans.
+
+I was not happy with using straight os.getenv() because we've had a
+number of errors that were related to missing config values in .env
+files. This module should help with that by providing a clean way for
+accessing config variables.
 
 Usage
 -----
