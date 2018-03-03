@@ -8,7 +8,7 @@ envconfig
 .. image:: https://coveralls.io/repos/dbader/envconfig/badge.png
         :target: https://coveralls.io/r/dbader/envconfig
 
-.. image:: https://pypip.in/v/envconfig/badge.png
+.. image:: https://img.shields.io/pypi/v/envconfig.svg
         :target: https://pypi.python.org/pypi/envconfig
 
 A module for reading configuration values from the OS environment variables.
