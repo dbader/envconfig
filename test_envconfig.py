@@ -58,6 +58,8 @@ class TestConfig(unittest.TestCase):
         os.environ['LIST_TEST'] = 'one#two# three #four '
         self.assertEqual(envconfig.list('LIST_TEST', separator='#'),
                          ['one', 'two', 'three', 'four'])
+        os.environ['LIST_TEST'] = ''
+        self.assertEqual(envconfig.list('LIST_TEST'), [])
 
     def test_getdict(self):
         os.environ['DICT_TEST'] = 'key1:val1,key2:val2'
@@ -69,3 +71,7 @@ class TestConfig(unittest.TestCase):
         os.environ['DICT_TEST'] = 'key1#val1,key2#val2'
         self.assertEqual(envconfig.dict('DICT_TEST', key_value_separator="#"),
                          {'key1': 'val1', 'key2': 'val2'})
+        os.environ['DICT_TEST'] = ''
+        self.assertEqual(envconfig.dict('DICT_TEST'), {})
+        os.environ['DICT_TEST'] = 'key1 val1 key2 val2'
+        self.assertRaises(ValueError, lambda: envconfig.dict('DICT_TEST'))

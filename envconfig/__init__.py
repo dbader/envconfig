@@ -63,7 +63,7 @@ def list(name, separator=','):
     """Return a list of strings from the config variable `name`.
     The individual list elements are whitespace-stripped.
     """
-    return [item.strip() for item in str(name).split(separator)]
+    return [item.strip() for item in str(name).split(separator) if item]
 
 
 def dict(name, item_separator=",", key_value_separator=":"):
@@ -72,6 +72,9 @@ def dict(name, item_separator=",", key_value_separator=":"):
     """
     result = {}
     for item in list(name, separator=item_separator):
-        key, value = item.split(key_value_separator)
+        try:
+            key, value = item.split(key_value_separator)
+        except ValueError:
+            raise ValueError("Malformed key/value pair: %r" % (item))
         result[key.strip()] = value.strip()
     return result
