@@ -3,6 +3,12 @@
 History
 -------
 
+0.2.1 (2021-07-23)
+++++++++++++++++++
+
+- envconfig.list(): return [] if env var is empty
+- envconfig.dict(): return {} if env var is empty
+
 0.2.0 (2021-07-23)
 ++++++++++++++++++
 
