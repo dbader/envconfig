@@ -1,6 +1,7 @@
 import os
 import sys
-from distutils.core import setup
+from setuptools import setup
+
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload -r PyPI')
@@ -13,7 +14,7 @@ setup(
     description='Parse config options from the OS environment.',
     long_description=(open('README.rst').read() + '\n\n' +
                       open('HISTORY.rst').read()),
-    license=open('LICENSE.txt').read(),
+    license="MIT",
     author='Daniel Bader',
     author_email='mail@dbader.org',
     url='https://github.com/dbader/envconfig',
