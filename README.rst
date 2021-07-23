@@ -36,6 +36,7 @@ Usage
     intopt = envconfig.int("INTEGER_OPTION")
     stropt = envconfig.int("STRING_OPTION")
     listopt = envconfig.list("LIST_OPTION")
+    dictopt = envconfig.dict("DICT_OPTION")
 
 Meta
 ----

@@ -9,7 +9,7 @@ if sys.argv[-1] == 'publish':
 setup(
     name='envconfig',
     packages=['envconfig'],
-    version='0.1.0',
+    version='0.2.0',
     description='Parse config options from the OS environment.',
     long_description=(open('README.rst').read() + '\n\n' +
                       open('HISTORY.rst').read()),
@@ -17,7 +17,7 @@ setup(
     author='Daniel Bader',
     author_email='mail@dbader.org',
     url='https://github.com/dbader/envconfig',
-    download_url='https://github.com/dbader/envconfig/tarball/0.1.0',
+    download_url='https://github.com/dbader/envconfig/tarball/0.2.0',
     keywords=[
         'config', 'environment', '12factor'
     ],
@@ -25,7 +25,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3',
         'Natural Language :: English',
     ],
 )
