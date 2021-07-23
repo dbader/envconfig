@@ -64,3 +64,14 @@ def list(name, separator=','):
     The individual list elements are whitespace-stripped.
     """
     return [item.strip() for item in str(name).split(separator)]
+
+
+def dict(name, item_separator=",", key_value_separator=":"):
+    """Return a dictionary from the config variable `name`.
+    Keys and values are whitespace-stripped.
+    """
+    result = {}
+    for item in list(name, separator=item_separator):
+        key, value = item.split(key_value_separator)
+        result[key.strip()] = value.strip()
+    return result
