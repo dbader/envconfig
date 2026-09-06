@@ -12,8 +12,8 @@ History
   the variable is missing: an empty string is still parsed as a value and
   an invalid value still raises.
 - Add ``envconfig.float()``.
-- Add ``strip=`` and ``allow_blank=`` keyword arguments to
-  ``envconfig.str()``. Default behaviour (strip, allow blank) is unchanged.
+- Add ``strip=``, ``allow_blank=`` and ``unescape_newlines=`` keyword
+  arguments to ``envconfig.str()``. Default behaviour is unchanged.
 - Add ``EnvConfigError``, ``MissingError`` (a ``KeyError``) and
   ``InvalidError`` (a ``ValueError``). Error messages now always name the
   variable and the expected format and no longer include the raw value.

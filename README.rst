@@ -44,9 +44,18 @@ Readers
 All readers take the variable name as the first argument and an optional
 keyword-only ``default``.
 
-``envconfig.str(name, *, default=..., strip=True, allow_blank=True)``
+``envconfig.str(name, *, default=..., strip=True, allow_blank=True, unescape_newlines=False)``
     Returns the string value. Whitespace is stripped unless
     ``strip=False``. Pass ``allow_blank=False`` to reject empty values.
+    Pass ``unescape_newlines=True`` to turn literal ``\n`` sequences into
+    real newlines, for multi-line values such as PEM keys stored on one
+    line in ``.env`` files:
+
+    .. code-block:: python
+
+        PADDLE_PUBLIC_KEY = envconfig.str(
+            "PADDLE_PUBLIC_KEY", default="", unescape_newlines=True
+        )
 
 ``envconfig.bool(name, *, default=...)``
     Accepts (case-insensitively) ``1``, ``yes``, ``true``, ``on`` for

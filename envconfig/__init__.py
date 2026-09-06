@@ -108,6 +108,7 @@ def str(
     *,
     strip: builtins.bool = ...,
     allow_blank: builtins.bool = ...,
+    unescape_newlines: builtins.bool = ...,
 ) -> builtins.str: ...
 
 
@@ -118,6 +119,7 @@ def str(
     default: T,
     strip: builtins.bool = ...,
     allow_blank: builtins.bool = ...,
+    unescape_newlines: builtins.bool = ...,
 ) -> Union[builtins.str, T]: ...
 
 
@@ -127,12 +129,18 @@ def str(
     default: _Default[Any] = MISSING,
     strip: builtins.bool = True,
     allow_blank: builtins.bool = True,
+    unescape_newlines: builtins.bool = False,
 ) -> Any:
     """Return the string value of the environment variable ``name``.
 
     The value is whitespace-stripped unless ``strip=False``. With
     ``allow_blank=False`` an empty (or, when stripping, whitespace-only)
     value raises ``InvalidError``.
+
+    With ``unescape_newlines=True`` every literal backslash-n sequence is
+    replaced by a real newline before stripping. Use this for multi-line
+    values such as PEM keys or JSON blobs that are stored on a single line
+    in ``.env`` files or hosting dashboards.
 
     Raises ``MissingError`` if the variable is not set and no ``default``
     was given. An empty string is a present value and never triggers the
@@ -143,6 +151,8 @@ def str(
         if isinstance(default, _Missing):
             raise MissingError(name)
         return default
+    if unescape_newlines:
+        value = value.replace("\\n", "\n")
     if strip:
         value = value.strip()
     if not allow_blank and not value:

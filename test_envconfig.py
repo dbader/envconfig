@@ -62,6 +62,28 @@ def test_str_allow_blank_false_without_strip() -> None:
     assert envconfig.str(NAME, strip=False, allow_blank=False) == "   "
 
 
+def test_str_unescape_newlines() -> None:
+    setenv("-----BEGIN KEY-----\\nabc\\ndef\\n-----END KEY-----\\n")
+    assert envconfig.str(NAME, unescape_newlines=True) == (
+        "-----BEGIN KEY-----\nabc\ndef\n-----END KEY-----"
+    )
+
+
+def test_str_unescape_newlines_before_strip() -> None:
+    setenv("  x\\n  ")
+    assert envconfig.str(NAME, unescape_newlines=True) == "x"
+    assert envconfig.str(NAME, unescape_newlines=True, strip=False) == "  x\n  "
+
+
+def test_str_unescape_newlines_off_by_default() -> None:
+    setenv("a\\nb")
+    assert envconfig.str(NAME) == "a\\nb"
+
+
+def test_str_unescape_newlines_with_default() -> None:
+    assert envconfig.str(NAME, default="", unescape_newlines=True) == ""
+
+
 # --- missing / defaults ----------------------------------------------------
 
 
