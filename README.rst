@@ -110,6 +110,18 @@ name as ``.name``.
 The package is fully type-annotated and ships a ``py.typed`` marker.
 Python 3.8+ is supported.
 
+Releasing
+---------
+
+Releases are published to PyPI by GitHub Actions via PyPI trusted
+publishing. Bump the version in ``pyproject.toml`` and
+``envconfig/__init__.py``, add a ``HISTORY.rst`` entry, merge, then tag:
+
+.. code-block:: bash
+
+    git tag -a v0.3.0 -m "envconfig 0.3.0"
+    git push origin v0.3.0
+
 Meta
 ----
 
