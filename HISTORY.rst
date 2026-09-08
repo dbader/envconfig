@@ -6,6 +6,7 @@ History
 Unreleased
 ++++++++++
 
+- Add ``envconfig.json()`` for structured values.
 - Require Python 3.9+. Python 3.8 has been end-of-life since October 2024
   and the setuptools release needed for SPDX license metadata does not
   support it.

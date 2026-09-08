@@ -321,6 +321,55 @@ def test_dict_invalid(value: str) -> None:
     assert "s3cret" not in str(excinfo.value)
 
 
+# --- json ------------------------------------------------------------------
+
+
+def test_json_object() -> None:
+    setenv('{"url": "https://example.com:8080", "retries": 3, "tls": true}')
+    assert envconfig.json(NAME) == {
+        "url": "https://example.com:8080",
+        "retries": 3,
+        "tls": True,
+    }
+
+
+def test_json_nested_and_array() -> None:
+    setenv('{"providers": ["bunny", "mux"], "limits": {"max": 10}}')
+    assert envconfig.json(NAME) == {
+        "providers": ["bunny", "mux"],
+        "limits": {"max": 10},
+    }
+    setenv("[1, 2, 3]")
+    assert envconfig.json(NAME) == [1, 2, 3]
+
+
+def test_json_scalars() -> None:
+    setenv("null")
+    assert envconfig.json(NAME) is None
+    setenv('"text"')
+    assert envconfig.json(NAME) == "text"
+    setenv("  42  ")
+    assert envconfig.json(NAME) == 42
+
+
+def test_json_default_only_when_missing() -> None:
+    assert envconfig.json(NAME, default={"a": 1}) == {"a": 1}
+    assert envconfig.json(NAME, default=None) is None
+    setenv("{}")
+    assert envconfig.json(NAME, default={"a": 1}) == {}
+
+
+@pytest.mark.parametrize("value", ["", "{s3cret", "{'a': 1}", "s3cret", "1,2"])
+def test_json_invalid(value: str) -> None:
+    setenv(value)
+    with pytest.raises(envconfig.InvalidError) as excinfo:
+        envconfig.json(NAME, default={})
+    assert str(excinfo.value) == (
+        "Invalid environment variable ENVCONFIG_TEST_VALUE: expected a JSON document."
+    )
+    assert "s3cret" not in str(excinfo.value)
+
+
 # --- misc ------------------------------------------------------------------
 
 
@@ -336,5 +385,6 @@ def test_exports() -> None:
         "float",
         "list",
         "dict",
+        "json",
     }
     assert isinstance(envconfig.__version__, str)

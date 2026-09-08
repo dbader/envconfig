@@ -37,6 +37,7 @@ Usage
     TIMEOUT = envconfig.float("REQUEST_TIMEOUT", default=2.5)
     PROVIDERS = envconfig.list("VIDEO_PROVIDERS_ENABLED", default=["bunny"])
     HEADERS = envconfig.dict("EXTRA_HEADERS", default={})
+    LIMITS = envconfig.json("RATE_LIMITS", default={"burst": 10})
 
 Readers
 -------
@@ -74,8 +75,19 @@ keyword-only ``default``.
     Parses ``"key1:val1,key2:val2"``. Each item is split on the *first*
     ``key_value_separator`` so values may contain it
     (``"url:https://example.com"`` works). Empty keys and duplicate keys
-    are errors. Separators cannot be escaped; use another format (e.g.
-    JSON) for structured values.
+    are errors. Separators cannot be escaped; use ``envconfig.json()``
+    for structured values.
+
+``envconfig.json(name, *, default=...)``
+    Parses the value as a JSON document and returns the result, typically
+    a ``dict`` or ``list``. Use it when values contain separators, need
+    nesting, or need non-string types:
+
+    .. code-block:: bash
+
+        RATE_LIMITS='{"burst": 10, "per_minute": 600, "paths": ["/api"]}'
+
+    An empty variable is not valid JSON and raises ``InvalidError``.
 
 Defaults
 --------

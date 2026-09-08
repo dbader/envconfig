@@ -14,6 +14,7 @@ used *only* when the variable is absent from the environment.
 from __future__ import annotations
 
 import builtins
+import json as _json
 import os
 from typing import Any, Dict, List, Sequence, TypeVar, Union, overload
 
@@ -27,6 +28,7 @@ __all__ = [
     "float",
     "list",
     "dict",
+    "json",
 ]
 
 __version__ = "0.3.0"
@@ -319,3 +321,33 @@ def dict(
             raise InvalidError(name, expected + " with unique keys")
         result[key] = value.strip()
     return result
+
+
+@overload
+def json(name: builtins.str) -> Any: ...
+
+
+@overload
+def json(name: builtins.str, *, default: T) -> Any: ...
+
+
+def json(name: builtins.str, *, default: _Default[Any] = MISSING) -> Any:
+    """Return the parsed JSON value of the environment variable ``name``.
+
+    The result is whatever the JSON document encodes: usually a ``dict``
+    or a ``list``, but a bare string, number, boolean or ``None`` are
+    valid JSON documents too. Use this instead of ``dict()`` or ``list()``
+    when values contain separators, need nesting, or need non-string
+    types.
+
+    Raises ``InvalidError`` if the value is not valid JSON. An empty
+    variable is not valid JSON and raises as well; pass a ``default`` if
+    the variable may be absent.
+    """
+    value = str(name, default=default)
+    if not isinstance(value, builtins.str):
+        return value
+    try:
+        return _json.loads(value)
+    except ValueError:
+        raise InvalidError(name, "a JSON document") from None
