@@ -108,7 +108,7 @@ Both derive from ``envconfig.EnvConfigError`` and expose the variable
 name as ``.name``.
 
 The package is fully type-annotated and ships a ``py.typed`` marker.
-Python 3.8+ is supported.
+Python 3.9+ is supported.
 
 Releasing
 ---------
