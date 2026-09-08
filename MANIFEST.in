@@ -1,1 +1,2 @@
 include README.rst LICENSE.txt HISTORY.rst test_envconfig.py
+include envconfig/py.typed

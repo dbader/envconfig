@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "envconfig"
+version = "0.3.0"
+description = "Parse config options from the OS environment."
+readme = "README.rst"
+license = { text = "MIT" }
+authors = [{ name = "Daniel Bader", email = "mail@dbader.org" }]
+requires-python = ">=3.8"
+keywords = ["config", "environment", "12factor"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/dbader/envconfig"
+Changelog = "https://github.com/dbader/envconfig/blob/master/HISTORY.rst"
+
+[project.optional-dependencies]
+dev = ["pytest", "mypy", "ruff"]
+
+[tool.setuptools]
+packages = ["envconfig"]
+
+[tool.setuptools.package-data]
+envconfig = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["test_envconfig.py"]
+
+[tool.mypy]
+strict = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+
+[tool.ruff.lint]
+# No "UP": typing.List/Dict are required because list/dict are shadowed here.
+select = ["E", "F", "W", "I", "B"]
