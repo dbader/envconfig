@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,13 +7,13 @@ name = "envconfig"
 version = "0.3.0"
 description = "Parse config options from the OS environment."
 readme = "README.rst"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE.txt"]
 authors = [{ name = "Daniel Bader", email = "mail@dbader.org" }]
 requires-python = ">=3.8"
 keywords = ["config", "environment", "12factor"]
 classifiers = [
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
