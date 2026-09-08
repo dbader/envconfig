@@ -3,6 +3,14 @@
 History
 -------
 
+Unreleased
+++++++++++
+
+- Require Python 3.9+. Python 3.8 has been end-of-life since October 2024
+  and the setuptools release needed for SPDX license metadata does not
+  support it.
+- Use an SPDX license expression in ``pyproject.toml``.
+
 0.3.0 (2026-09-06)
 ++++++++++++++++++
 
